@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Presently</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img src="Pictures/Picture1.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
+        </a>
+      </div>
+    </nav>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Grammar & visibility Checker</li>
+      </ol>
+    </nav>
+    <h4 class="card-title text-center my-5">Detecting Grammar & Dull Images</h4>
+    <div class="mt-5 p-3 bg-white rounded"
+        style="width: 36rem;margin: auto;text-transform: uppercase;">
+
+        <form class="validated" method="post" action="/" enctype="multipart/form-data">
+            <div class="custom-file mb-5">
+                <input type="file" name="file[]" class="custom-file-input mb-2" id="document" multiple required>
+                <label class="custom-file-label" for="document">Choose file...</label>
+                <small class="text-left">Allow files types are ppt, pptx</small>
+                <div class="invalid-feedback">Example invalid custom file feedback</div>
+            </div>
+            <button type="submit" class="btn btn-block btn-primary mt-3">
+                EXTRACT
+            </button>
+            <hr/>
+        </form>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div style="width:50rem;">
+            {% if pages %}
+            {% for page in pages %}
+            <blockquote class="blockquote">
+                <h4 class="text-center mb-0">Page {{loop.index}}</h4>
+            </blockquote>
+            <div class="card-body pt-0">
+                <div>
+                    {% if page[0] %}
+                    {% for image in page[0] %}
+                    <div class="alert alert-dark mb-0 mt-4">
+                        {{ image[0][0] }}
+                        <br>
+                        Sharpness Value: {{ image[0][1] }}
+                    </div>
+                    <img src="{{image[1]}}" class="mt-0">
+                    {% endfor %}
+                    {% endif %}
+                </div>
+
+                <div class="card-body">
+                    <div>
+                        {% if page[1] %}
+                        {% for text in page[1] %}
+
+                        {% if (text|length > 0) %}
+                        <div class="alert alert-dark mb-0 mt-4">
+                            {% for t in text %}
+                            <br>
+                            {{ t.message }}
+                            <br>
+                            {{ t.sentence }}
+                            <br>
+                            {% for r in t.replacements %}
+                            {{'Suggestion/Corrections : ' + r}}
+                            {% endfor %}
+<!--                            {{ t.replacements }}-->
+                            <br>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>
