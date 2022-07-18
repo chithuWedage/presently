@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Presently</title>
+     <title>Grammar & Visibility</title>
+    <link rel="shortcut icon" href="{{url_for('static',filename = 'favicon.png')}}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css">
 </head>
 
@@ -11,7 +12,7 @@
     <nav class="navbar navbar-light bg-light">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
-          <img src="Pictures/Picture1.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
+          <img src="{{url_for('static',filename = 'Picture1.png')}}" width="200" height="110" />
         </a>
       </div>
     </nav>
